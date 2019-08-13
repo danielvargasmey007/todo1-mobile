@@ -10,7 +10,10 @@ class Login extends Component {
 
     constructor(props) {
         super(props)
+        this.navigation = this.props.navigation;
         this.onSubmit = this.onSubmit.bind(this);
+        this.onLoginSuccess = this.onLoginSuccess.bind(this);
+        this.onLoginFailed = this.onLoginFailed.bind(this);
     }
 
     async onSubmit() {
@@ -19,8 +22,19 @@ class Login extends Component {
             this.setState({ noUser: this.state.id, noPass: this.state.password });
         } else {
             const { id, password } = this.state;
-            alert(id + password)
+            this.onLoginSuccess();
 
+        }
+    }
+
+    onLoginSuccess() {
+        this.setState({ password: '' });
+        this.navigation.navigate('Home');
+    }
+
+    onLoginFailed() {
+        if (this.Alert) {
+            this.Alert.error('Iniciar Sesión', this.state.error);
         }
     }
 

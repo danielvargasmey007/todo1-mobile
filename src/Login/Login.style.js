@@ -17,7 +17,7 @@ const styles = ScaledSheet.create({
     },
     bottom: {
         height: height * 0.45,
-        marginTop: 0,
+        marginTop: '15@ms',
         marginBottom: 0
     },
     containerI: {
