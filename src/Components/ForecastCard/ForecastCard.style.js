@@ -26,8 +26,8 @@ const styles = ScaledSheet.create({
         marginBottom: 0,
     },
     image: {
-        width: '55@ms',
-        height: '55@ms'
+        width: '50@ms',
+        height: '50@ms'
     },
     cardContainer: {
         flexDirection: 'row',
@@ -35,7 +35,7 @@ const styles = ScaledSheet.create({
     },
     cardDivider: {
         backgroundColor: '#dfe6e9',
-        marginVertical: 20
+        marginVertical: '10@vs'
     },
     imageContainer: {
         flexDirection: 'row',

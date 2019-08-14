@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Dimensions, StatusBar } from 'react-native';
-import { createAppContainer, createDrawerNavigator, createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createAppContainer, createBottomTabNavigator, createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import Login from './Components/Login/Login';
 import Home from './Components/Home/Home';
 import styles from './App.styles';
@@ -18,33 +19,44 @@ class App extends Component {
 }
 
 /* Se crean las diferentes rutas de la aplicación */
-const stackRoutes = createStackNavigator({
-  Home: Home
-},
+const Tabs = createBottomTabNavigator(
   {
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
-    }
-  });
-
-const Drawers = createDrawerNavigator({
-  Dashboard: {
-    screen: stackRoutes
+    Home: { screen: Home },
+    Tranferencias: { screen: Login },
   },
-},
   {
-    drawerWidth: width * 0.7,
-  });
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'Home') {
+          iconName = 'ios-home';
+        } else if (routeName === 'Tranferencias') {
+          iconName = 'md-swap';
+        }
+        return <Ionicons name={iconName} color='white' size={25} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'white',
+      inactiveTintColor: 'gray',
+      style: {
+        backgroundColor: '#08104D'
+      }
+    },
+  }
+);
 
 const Switch = createSwitchNavigator({
   Login: {
     screen: Login
   },
   Dashboard: {
-    screen: Drawers
+    screen: Tabs
   }
 });
+
+
 
 const OuletRouter = createAppContainer(Switch);
 

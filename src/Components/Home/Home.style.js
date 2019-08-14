@@ -1,6 +1,6 @@
 import { Dimensions } from "react-native";
 import { ScaledSheet } from 'react-native-size-matters';
-const { height, width } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 
 const styles = ScaledSheet.create({
@@ -8,13 +8,21 @@ const styles = ScaledSheet.create({
         height: height * 0.33,
     },
     medium: {
-        height: height * 0.33,
-        backgroundColor: 'red'
+        height: height * 0.46,
+        borderTopWidth: 3,
+        borderTopColor: '#08104D',
+        marginBottom: '10@ms',
     },
     bottom: {
-        height: height * 0.33,
+        height: height * 0.21,
         backgroundColor: 'green'
     },
+    mediumTitle: {
+        textAlign: 'center', // <-- the magic
+        fontWeight: 'bold',
+        fontSize: '22@ms',
+        color: '#08104D',
+    }
 });
 
 export default styles;

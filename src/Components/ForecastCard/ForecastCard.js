@@ -44,7 +44,6 @@ class ForecastCard extends Component {
                 })
         } catch (error) {
             alert("Por favor verifica que tengas activada tu ubicación.")
-
         }
     }
 
@@ -85,7 +84,7 @@ class ForecastCard extends Component {
     render() {
         return (
             <ScrollView>
-                <Text style={styles.text}>¡Hola! Nos preocupamos por ti, este es el pronostico del clima para tu ubicacion:</Text>
+                <Text style={styles.text}>Nos preocupamos por ti, por eso aquí te dejamos el pronostico del clima:</Text>
                 <FlatList data={this.state.forecast.list} keyExtractor={item => item.dt_txt} renderItem={this.renderItem} />
             </ScrollView>
         );
