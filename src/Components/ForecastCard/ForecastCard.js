@@ -20,28 +20,32 @@ class ForecastCard extends Component {
     }
 
     async getLocation() {
-        await Geolocation.getCurrentPosition(info => this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude },
-            () => this.getWeather()
-        ));
+        try {
+            await Geolocation.getCurrentPosition(info => this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude },
+                () => this.getWeather()
+            ));
+        } catch (error) {
+            alert("Por favor verifica que tengas activada tu ubicación.")
+        }
     }
 
     getWeather() {
-        console.log(this.state);
+        try {
+            // Construct the API url to call
+            let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&units=metric&appid=152ff719a66c7b0f8df6576c4755dc0b`;
 
-        // Construct the API url to call
-        let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&units=metric&appid=152ff719a66c7b0f8df6576c4755dc0b`;
-        console.log(url);
+            // Call the API, and set the state of the weather forecast
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    this.setState((prevState, props) => ({
+                        forecast: data
+                    }));
+                })
+        } catch (error) {
+            alert("Por favor verifica que tengas activada tu ubicación.")
 
-        // Call the API, and set the state of the weather forecast
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                this.setState((prevState, props) => ({
-                    forecast: data
-                }));
-            })
-        console.log(this.state.forecast);
-
+        }
     }
 
     renderItem({ item }) {
