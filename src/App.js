@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View, Dimensions, StatusBar } from 'react-native';
 import { createAppContainer, createDrawerNavigator, createSwitchNavigator, createStackNavigator } from 'react-navigation';
-import Login from './Login/Login';
-import Home from './Home/Home';
+import Login from './Components/Login/Login';
+import Home from './Components/Home/Home';
 import styles from './App.styles';
 const { width } = Dimensions.get('window');
 

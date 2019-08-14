@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Image, TouchableHighlight } from 'react-native';
+import React from 'react';
+import { Image } from 'react-native';
 import { Header } from 'react-native-elements';
 import headerStyles from './Header.style';
 

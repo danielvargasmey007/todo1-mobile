@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, Text, Platform, Image } from 'react-native';
+import { View, KeyboardAvoidingView, Text, Image } from 'react-native';
 import { Button, FormInput, FormValidationMessage } from 'react-native-elements'
 
 import styles from './Login.style';
