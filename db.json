@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "id": 12345,
+            "name": "Yudy Alejandra",
+            "surname": "Guitierrez Castrillon",
+            "password": "a2x4NjkzQA=="
+        },
+        {
+            "id": 456789,
+            "name": "Kevin",
+            "surname": "Zapata Metrio",
+            "password": "QHoyNTBsbA=="
+        },
+        {
+            "id": 99020605320,
+            "name": "Anderson Daniel",
+            "surname": "Vargas Martinez",
+            "password": "ZHVrZUAyMDIw"
+        }
+    ]
+}
