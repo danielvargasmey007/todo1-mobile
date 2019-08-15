@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@react-native-community/geolocation": "^1.4.2",
+    "firebase": "6.3.5",
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-elements": "0.19.1",

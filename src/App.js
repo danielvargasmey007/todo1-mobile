@@ -5,9 +5,13 @@ import { createAppContainer, createBottomTabNavigator, createSwitchNavigator, cr
 import Login from './Components/Login/Login';
 import Home from './Components/Home/Home';
 import styles from './App.styles';
-const { width } = Dimensions.get('window');
+import FireBaseService from './services/FireBaseService';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    FireBaseService.init();
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -22,7 +26,7 @@ class App extends Component {
 const Tabs = createBottomTabNavigator(
   {
     Home: { screen: Home },
-    Tranferencias: { screen: Login },
+    Tranferencias: { screen: Login }
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -33,6 +37,8 @@ const Tabs = createBottomTabNavigator(
           iconName = 'ios-home';
         } else if (routeName === 'Tranferencias') {
           iconName = 'md-swap';
+        } else {
+          iconName = 'ios-log-out';
         }
         return <Ionicons name={iconName} color='white' size={25} />;
       },

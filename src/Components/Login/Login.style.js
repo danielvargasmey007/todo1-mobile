@@ -69,6 +69,11 @@ const styles = ScaledSheet.create({
         marginTop: 0,
         marginBottom: 0,
     },
+    loadinView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });
 
 export default styles;
