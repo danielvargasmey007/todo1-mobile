@@ -9,7 +9,7 @@ class Home extends Component {
     render() {
         return (
             <View>
-                <TopHeader headerText="Mis Cuentas" />
+                <TopHeader />
                 <View style={styles.top}>
                     <ForecastCard />
                 </View>

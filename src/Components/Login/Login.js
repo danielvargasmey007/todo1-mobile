@@ -53,7 +53,7 @@ class Login extends Component {
                         <View style={styles.container}>
                             <View style={styles.top}>
                                 <Image
-                                    source={{ uri: 'https://www.finnovista.com/wp-content/uploads/2018/07/todo1-300x150.png' }}
+                                    source={require('../../../assets/image/todo1-300x150.png')}
                                     style={styles.Image}
                                 />
                             </View>
