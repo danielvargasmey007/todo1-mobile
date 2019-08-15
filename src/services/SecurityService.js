@@ -14,41 +14,18 @@ async function doLogin(email, password) {
   return response;
 }
 
-/* Funcion que devuelve la informacion del usuario */
-async function getUserInfo() {
-  let data = [];
+/* devuelve el uid del usuario */
+async function getUid() {
+  let uid = null;
   try {
-    let payload = await AsyncStorage.getItem('access_token', (value) => {
-      JSON.parse(value);
-    });
-    if (payload) {
-      payload = JSON.parse(base64.decode(payload.split('.')[1].trim()));
-    }
-    if (payload != null && payload.user_name && payload.user_name.length > 0) {
-      data = JSON.parse(payload.user_name);
-    }
+    uid = await firebase.auth().currentUser.uid;
   } catch (error) {
-    // se registra log para la trazabilidad
-    // eslint-disable-next-line no-console
-    console.log('getUserInfo', error);
+    uid = false;
   }
-  return data;
-}
-
-/* Funcion que destruye token para terminar la session del usuario */
-async function doLogout() {
-  clearAsyncStorageToken();
-}
-
-/* limpia la informacion de los token del  AsyncStorage*/
-function clearAsyncStorageToken() {
-  AsyncStorage.removeItem('access_token');
-  AsyncStorage.removeItem('refresh_token');
-  AsyncStorage.removeItem('expires_in');
+  return uid;
 }
 
 module.exports = {
-  getUserInfo,
-  doLogout,
-  doLogin
+  doLogin,
+  getUid
 };
