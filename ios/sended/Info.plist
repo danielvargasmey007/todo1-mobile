@@ -25,6 +25,12 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
+	<key>NSCameraUsageDescription</key>
+	<string>Requerimos el uso de la camara para escanear el QR<</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Requerimos el uso de la camara para escanear el QR</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Requerimos el uso de la camara para escanear el QR<</string>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>

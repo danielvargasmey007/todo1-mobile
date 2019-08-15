@@ -4,8 +4,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createAppContainer, createBottomTabNavigator, createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import Login from './Components/Login/Login';
 import Home from './Components/Home/Home';
+import QRGenerator from './Components/Transaction/QRGenerator/QRGenerator';
+import QRScanner from './Components/Transaction/QRScanner/QRScanner';
+import Transaction from './Components/Transaction/Transaction';
 import styles from './App.styles';
-const { width } = Dimensions.get('window');
 
 class App extends Component {
   render() {
@@ -19,10 +21,22 @@ class App extends Component {
 }
 
 /* Se crean las diferentes rutas de la aplicación */
+const stackRoutes = createStackNavigator({
+  Tranferencias: Transaction,
+  QRGenerator: QRGenerator,
+  QRScanner: QRScanner
+},
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  });
+
 const Tabs = createBottomTabNavigator(
   {
     Home: { screen: Home },
-    Tranferencias: { screen: Login },
+    Tranferencias: stackRoutes,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
