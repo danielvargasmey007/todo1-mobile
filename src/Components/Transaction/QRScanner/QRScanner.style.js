@@ -65,6 +65,13 @@ const styles = ScaledSheet.create({
         color: 'black',
         paddingRight: 30,
     },
+    containerAlter: {
+        flex: 1
+    },
+    camera: {
+        width: '100%',
+        height: '100%'
+    }
 
 });
 

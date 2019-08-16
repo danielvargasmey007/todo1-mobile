@@ -85,7 +85,7 @@ class QRScanner extends Component {
 
     render() {
         return (
-            <View style={(this.state.isSubmit) ? styles.container : { flex: 1 }}>
+            <View style={(this.state.isSubmit) ? styles.container : styles.containerAlter}>
                 {(this.state.isSubmit) ?
                     <View style={styles.medium}>
                         <FormLabel>Producto Destino</FormLabel>
@@ -118,7 +118,7 @@ class QRScanner extends Component {
                     <QRCodeScanner
                         fadeIn={false}
                         showMarker={true}
-                        cameraStyle={{ width: '100%', height: '100%' }}
+                        cameraStyle={styles.camera}
                         onRead={this.onSuccess}
                     />
                 }
