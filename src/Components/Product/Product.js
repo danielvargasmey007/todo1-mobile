@@ -1,45 +1,44 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { Text, Card, Divider } from 'react-native-elements';
 import styles from './Product.style';
-import HomeService from '../../services/HomeService';
-import { getUid } from '../../services/SecurityService';
 
 class Product extends Component {
+
+    state = { account: null };
+
     constructor(props) {
         super(props);
-        this.state = { account: null };
-        this.fetchAccounts = this.fetchAccounts.bind(this);
+        this.renderItem = this.renderItem.bind(this);
     }
 
-    componentDidMount() {
-        this.fetchAccounts();
+    componentWillReceiveProps(props) {
+        this.setState({ account: props.accounts });
     }
 
-    async fetchAccounts() {
-        let uid = await getUid();
 
-        HomeService.getAccount(uid, (val) => {
-            this.setState({ account: val.account })
-        });
+    renderItem({ item }) {
+        return (
+            <Card containerStyle={styles.card}>
+                <View style={styles.imageContainer}>
+                    <Text style={styles.time}>{item.name}</Text>
+                    <Text style={styles.notes}>*{item.number.slice(-4)}</Text>
+                </View>
+                <Divider style={styles.cardDivider} />
+                <Text style={styles.notes}>$ {String(parseFloat(item.rode)).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
+            </Card>
+        );
     }
+
 
     render() {
         return (
-            <View style={(!this.state.account) ? styles.loadinView : {}}>
-                {(!this.state.account) ?
-                    <ActivityIndicator size="large" color="#08104D" />
-                    :
-                    <Card containerStyle={styles.card}>
-                        <View style={styles.imageContainer}>
-                            <Text style={styles.time}>{this.state.account.name}</Text>
-                            <Text style={styles.notes}>*{this.state.account.number.slice(-4)}</Text>
-                        </View>
-                        <Divider style={styles.cardDivider} />
-                        <Text style={styles.notes}>$ {String(parseFloat(this.state.account.rode)).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
-                    </Card>
+            <View>
+                {(!this.state.account) ? null :
+                    <FlatList data={this.state.account} keyExtractor={item => item.number} renderItem={this.renderItem} />
                 }
             </View>
+
         );
     }
 }

@@ -1,12 +1,15 @@
 import * as firebase from 'firebase';
 
 class HomeService {
-    static getAccount(id, call) {
-        let path = `/users/${id}`;
-        firebase.database().ref(path).on('value', (snapshot) => {
-            call(snapshot.val());
+    static getAccountByUid(id, call) {
+        firebase.database().ref().child('account').orderByChild('owner').equalTo(id).on("value", function (snapshot) {
+            let response = []
+            snapshot.forEach(function (data) {
+                response.push(data.val())
+            });
+            call(response);
         })
     }
 }
 
-module.exports = HomeService;
+export default HomeService;
