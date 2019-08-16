@@ -41,7 +41,8 @@ const stackRoutes = createStackNavigator({
 const Tabs = createBottomTabNavigator(
   {
     Home: { screen: Home },
-    Tranferencias: { screen: Login }
+    Tranferencias: stackRoutes,
+    Salir: Login
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

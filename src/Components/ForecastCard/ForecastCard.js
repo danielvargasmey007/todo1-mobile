@@ -21,9 +21,14 @@ class ForecastCard extends Component {
 
     async getLocation() {
         try {
-            await Geolocation.getCurrentPosition(info => this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude },
-                () => this.getWeather()
-            ));
+            await Geolocation.getCurrentPosition(
+                info => {
+                    this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude },
+                        () => this.getWeather()
+                    )
+                },
+                error => alert("Por favor verifica que tengas activada tu ubicación.")
+            );
         } catch (error) {
             alert("Por favor verifica que tengas activada tu ubicación.")
         }

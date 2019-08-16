@@ -5,16 +5,19 @@ import styles from './QRGenerator.style';
 import { Button, FormInput } from 'react-native-elements';
 import HomeService from '../../../services/HomeService';
 import { getUid } from '../../../services/SecurityService';
+import RNPickerSelect from 'react-native-picker-select';
 
 const { width } = Dimensions.get('window');
 
 class QRGenerator extends Component {
     state = {
-        body: '',
+        body: '12345',
         rode: 0,
         account: '',
         currentAccount: null,
-        isSubmit: false
+        accountPiker: [],
+        isSubmit: false,
+        currency: true
     };
 
     constructor(props) {
@@ -24,13 +27,15 @@ class QRGenerator extends Component {
     }
 
     generator() {
-        let body = JSON.stringify([
-            this.state.account.number,
-            this.state.rode]
-        );
-
-
-        this.setState({ body })
+        if (this.state.currentAccount) {
+            let body = JSON.stringify([
+                this.state.currentAccount,
+                (!this.state.currency) ? this.state.rode : (this.state.rode) / (0.00029)]
+            );
+            this.setState({ body, isSubmit: true })
+        } else {
+            alert('Por favor verifica tus datos.')
+        }
     }
 
     componentWillMount() {
@@ -40,8 +45,14 @@ class QRGenerator extends Component {
     async fetchAccounts() {
         let uid = await getUid();
         HomeService.getAccountByUid(uid, (account) => {
-            this.setState({ account: account[0] }, () => this.generator())
+            this.setState({ account: account })
         });
+
+        let response = []
+        this.state.account.forEach(function (data) {
+            response.push({ label: `${data.name}`, value: data.number });
+        });
+        this.setState({ accountPiker: response })
     }
 
     render() {
@@ -49,6 +60,21 @@ class QRGenerator extends Component {
             <View style={(this.state.isSubmit) ? styles.container : {}}>
                 {(!this.state.isSubmit) ?
                     <View style={styles.medium}>
+                        <RNPickerSelect
+                            placeholder={{ label: `Producto`, value: null }}
+                            style={{ width: '80%' }}
+                            onValueChange={(value) => this.setState({ currentAccount: value })}
+                            items={this.state.accountPiker}
+                            useNativeAndroidPickerStyle={false}
+                        />
+                        <RNPickerSelect
+                            placeholder={{ label: `Moneda`, value: null }}
+                            style={{ width: '80%' }}
+                            onValueChange={(value) => this.setState({ currency: value })}
+                            items={[{ label: `Peso Colombiano`, value: false },
+                            { label: `Dolar`, value: true }]}
+                            useNativeAndroidPickerStyle={false}
+                        />
                         <FormInput
                             inputStyle={styles.input}
                             placeholder='Valor'
@@ -56,7 +82,7 @@ class QRGenerator extends Component {
                             onChangeText={(rode) => this.setState({ rode })}
                         />
                         <View style={styles.bottom}>
-                            <Button borderRadius={5} buttonStyle={styles.button} textStyle={styles.textButton} onPress={() => this.setState({ isSubmit: true }, () => this.generator())}
+                            <Button borderRadius={5} buttonStyle={styles.button} textStyle={styles.textButton} onPress={() => this.generator()}
                                 title='Listo'
                             />
                         </View>
@@ -64,8 +90,6 @@ class QRGenerator extends Component {
                     <QRCode
                         size={width * 0.88}
                         value={this.state.body}
-                        logoSize={width * 0.25}
-                        logo={require('../../../../assets/image/todo1-logo.png')}
                     />
                 }
             </View>

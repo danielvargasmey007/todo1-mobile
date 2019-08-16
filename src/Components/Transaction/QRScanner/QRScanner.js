@@ -6,16 +6,17 @@ import { getUid } from '../../../services/SecurityService';
 import { Button, FormInput, FormLabel } from 'react-native-elements';
 import { View } from 'react-native';
 import styles from './QRScanner.style';
-
+import RNPickerSelect from 'react-native-picker-select';
 
 class QRScanner extends Component {
     state = {
         account: null,
         account1: '',
-        account2: '',
         rode1: 0,
         rode2: 0,
         valTransfer: 0,
+        currentAccount: null,
+        accountPiker: [],
         isSubmit: false
     };
 
@@ -24,6 +25,7 @@ class QRScanner extends Component {
         this.navigation = this.props.navigation;
         this.onTransfering = this.onTransfering.bind(this);
         this.fetchAccounts = this.fetchAccounts.bind(this);
+        this.getRodeCurrentAccount = this.getRodeCurrentAccount.bind(this);
     }
 
     componentWillMount() {
@@ -33,26 +35,30 @@ class QRScanner extends Component {
     async fetchAccounts() {
         let uid = await getUid();
         HomeService.getAccountByUid(uid, (account) => {
-            this.setState({ account: account[0] })
+            this.setState({ account: account })
         });
+
+        let response = []
+        this.state.account.forEach(function (data) {
+            response.push({ label: `${data.name}`, value: data.number });
+        });
+        this.setState({ accountPiker: response })
+    }
+
+    async getRodeCurrentAccount() {
+        await TransactionService.getByNumber(this.state.currentAccount, (value) => {
+            this.setState({ rode2: value.rode })
+        })
     }
     onSuccess = async (e) => {
         try {
             let data = await JSON.parse(e.data);
-            alert(data[0]);
-
-            this.setState({ account1: data[0], account2: this.state.account.number, valTransfer: data[1] });
+            this.setState({ account1: data[0], valTransfer: data[1] });
 
             await TransactionService.getByNumber(this.state.account1, (value) => {
                 this.setState({ rode1: value.rode })
             })
-
-            await TransactionService.getByNumber(this.state.account2, (value) => {
-                this.setState({ rode2: value.rode })
-            })
-
             this.setState({ isSubmit: true })
-
         } catch (error) {
             alert("!Opps!Alparecer no es un QR de todo 1")
         }
@@ -60,10 +66,18 @@ class QRScanner extends Component {
 
     async onTransfering() {
         try {
-            await TransactionService.updateAccount(this.state.account1, this.state.rode1 + this.state.valTransfer);
-            await TransactionService.updateAccount(this.state.account2, this.state.rode2 - this.state.valTransfer);
-            alert('Operación Exitosa');
-            this.navigation.navigate('Home');
+            if (this.state.currentAccount) {
+                if ((this.state.rode2 && this.state.valTransfer) && (this.state.rode2 < this.state.valTransfer)) {
+                    alert('!Oops, no tienes lo suficiente.')
+                } else {
+                    await TransactionService.updateAccount(this.state.account1, this.state.rode1 + this.state.valTransfer);
+                    await TransactionService.updateAccount(this.state.currentAccount, this.state.rode2 - this.state.valTransfer);
+                    alert('Operación Exitosa');
+                    this.navigation.navigate('Home');
+                }
+            } else {
+                alert('Por favor verifica tus datos.')
+            }
         } catch (error) {
             alert('Operación Fallida');
         }
@@ -87,6 +101,13 @@ class QRScanner extends Component {
                             placeholder='Valor'
                             value={`${this.state.valTransfer}`}
                             onChangeText={(valTransfer) => this.setState({ valTransfer })}
+                        />
+                        <RNPickerSelect
+                            placeholder={{ label: `Producto a debitar`, value: null }}
+                            style={{ width: '80%' }}
+                            onValueChange={(value) => this.setState({ currentAccount: value }, () => this.getRodeCurrentAccount())}
+                            items={this.state.accountPiker}
+                            useNativeAndroidPickerStyle={false}
                         />
                         <View style={styles.bottom}>
                             <Button borderRadius={5} buttonStyle={styles.button} textStyle={styles.textButton} onPress={() => this.onTransfering()}
