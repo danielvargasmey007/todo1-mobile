@@ -48,12 +48,47 @@ const styles = ScaledSheet.create({
     button: {
         backgroundColor: '#08104D',
         height: '55@vs',
+        width: width * 0.85,
         paddingVertical: '1.5@vs',
     },
     textButton: {
         fontWeight: 'bold',
         fontSize: 21
     },
+    inputPicker: {
+        fontSize: 16,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderWidth: 0.5,
+        borderColor: '#08104D',
+        borderRadius: 8,
+        color: 'black',
+        paddingRight: 30,
+    },
+
 });
 
-export default styles;
+const pickerSelectStyles = ScaledSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        marginVertical: 5,
+        borderWidth: 0.5,
+        width: width * 0.9,
+        borderRadius: 8,
+        borderColor: '#08104D',
+        color: 'black',
+        paddingRight: 30
+    },
+    inputAndroid: {
+        fontSize: 16,
+        marginVertical: 5,
+        borderWidth: 0.5,
+        width: width * 0.9,
+        borderRadius: 8,
+        borderColor: '#08104D',
+        color: 'black',
+        paddingRight: 30
+    },
+});
+
+module.exports = { styles, pickerSelectStyles };

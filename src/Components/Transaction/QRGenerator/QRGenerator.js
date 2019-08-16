@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Dimensions, View, Alert } from 'react-native'
 import QRCode from 'react-native-qrcode-svg';
-import styles from './QRGenerator.style';
+import { styles, pickerSelectStyles } from './QRGenerator.style';
 import { Button, FormInput } from 'react-native-elements';
 import HomeService from '../../../services/HomeService';
 import { getUid } from '../../../services/SecurityService';
@@ -63,14 +63,14 @@ class QRGenerator extends Component {
                     <View style={styles.medium}>
                         <RNPickerSelect
                             placeholder={{ label: `Producto`, value: null }}
-                            style={{ width: '80%' }}
+                            style={pickerSelectStyles}
                             onValueChange={(value) => this.setState({ currentAccount: value })}
                             items={this.state.accountPiker}
                             useNativeAndroidPickerStyle={false}
                         />
                         <RNPickerSelect
                             placeholder={{ label: `Moneda`, value: null }}
-                            style={{ width: '80%' }}
+                            style={pickerSelectStyles}
                             onValueChange={(value) => this.setState({ currency: value })}
                             items={[{ label: `Peso Colombiano`, value: false },
                             { label: `Dolar`, value: true }]}

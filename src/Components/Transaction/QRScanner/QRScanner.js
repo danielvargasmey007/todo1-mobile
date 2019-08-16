@@ -5,7 +5,7 @@ import HomeService from '../../../services/HomeService';
 import { getUid } from '../../../services/SecurityService';
 import { Button, FormInput, FormLabel } from 'react-native-elements';
 import { View, Alert } from 'react-native';
-import styles from './QRScanner.style';
+import { styles, pickerSelectStyles } from './QRScanner.style';
 import RNPickerSelect from 'react-native-picker-select';
 
 class QRScanner extends Component {
@@ -104,7 +104,7 @@ class QRScanner extends Component {
                         />
                         <RNPickerSelect
                             placeholder={{ label: `Producto a debitar`, value: null }}
-                            style={{ width: '80%' }}
+                            style={pickerSelectStyles}
                             onValueChange={(value) => this.setState({ currentAccount: value }, () => this.getRodeCurrentAccount())}
                             items={this.state.accountPiker}
                             useNativeAndroidPickerStyle={false}
