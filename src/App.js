@@ -42,7 +42,6 @@ const Tabs = createBottomTabNavigator(
   {
     Home: { screen: Home },
     Tranferencias: stackRoutes,
-    Salir: Login
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

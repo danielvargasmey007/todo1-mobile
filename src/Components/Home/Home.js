@@ -31,7 +31,7 @@ class Home extends Component {
     render() {
         return (
             <View>
-                <TopHeader />
+                <TopHeader {...this.props} />
                 <View style={styles.top}>
                     <ForecastCard />
                 </View>

@@ -70,7 +70,7 @@ class QRScanner extends Component {
                 if ((this.state.rode2 && this.state.valTransfer) && (this.state.rode2 < this.state.valTransfer)) {
                     Alert.alert('!Opps!', 'no tienes lo suficiente.', [{ text: 'OK' },], { cancelable: true });
                 } else {
-                    await TransactionService.updateAccount(this.state.account1, this.state.rode1 + this.state.valTransfer);
+                    await TransactionService.updateAccount(this.state.account1, (this.state.rode1 * 1) + (this.state.valTransfer * 1));
                     await TransactionService.updateAccount(this.state.currentAccount, this.state.rode2 - this.state.valTransfer);
                     Alert.alert('Hola!', 'Operación Exitosa.', [{ text: 'OK' },], { cancelable: true });
                     this.navigation.navigate('Home');

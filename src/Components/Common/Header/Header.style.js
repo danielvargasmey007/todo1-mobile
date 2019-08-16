@@ -9,7 +9,13 @@ const headerStyles = ScaledSheet.create({
   },
   header: {
     height: 60
-  }
+  },
+  hitSlop: {
+    top: 25,
+    right: 30,
+    bottom: 25,
+    left: 30
+  },
 });
 
 export default headerStyles;
