@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View } from 'react-native'
+import { Dimensions, View, Alert } from 'react-native'
 import QRCode from 'react-native-qrcode-svg';
 import styles from './QRGenerator.style';
 import { Button, FormInput } from 'react-native-elements';
@@ -34,7 +34,8 @@ class QRGenerator extends Component {
             );
             this.setState({ body, isSubmit: true })
         } else {
-            alert('Por favor verifica tus datos.')
+            Alert.alert('Todo 1 Informa', 'Por favor verifica tu información.',
+                [{ text: 'OK' },], { cancelable: true });
         }
     }
 

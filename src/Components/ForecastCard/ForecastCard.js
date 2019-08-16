@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, Image, ScrollView } from 'react-native';
+import { FlatList, View, Image, ScrollView, Alert } from 'react-native';
 import { Text, Card, Divider } from 'react-native-elements';
 import styles from './ForecastCard.style';
 import Geolocation from '@react-native-community/geolocation';
@@ -27,10 +27,11 @@ class ForecastCard extends Component {
                         () => this.getWeather()
                     )
                 },
-                error => alert("Por favor verifica que tengas activada tu ubicación.")
+                error => Alert.alert('Todo 1 Informa', 'Por favor verifica que tengas activada tu ubicación.',
+                    [{ text: 'OK' },], { cancelable: true })
             );
         } catch (error) {
-            alert("Por favor verifica que tengas activada tu ubicación.")
+            Alert.alert('Todo 1 Informa', 'Por favor verifica que tengas activada tu ubicación.', [{ text: 'OK' },], { cancelable: true });
         }
     }
 
@@ -43,12 +44,11 @@ class ForecastCard extends Component {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    this.setState((prevState, props) => ({
-                        forecast: data
-                    }));
+                    this.setState({ forecast: data });
                 })
         } catch (error) {
-            alert("Por favor verifica que tengas activada tu ubicación.")
+            Alert.alert('Todo 1 Informa', 'Por favor verifica que tengas activada tu ubicación.',
+                [{ text: 'OK' },], { cancelable: true });
         }
     }
 

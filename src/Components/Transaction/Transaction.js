@@ -17,7 +17,6 @@ class Transaction extends Component {
 
     onQRScann() {
         this.navigation.navigate('QRScanner');
-
     }
 
     onQRGerenation() {

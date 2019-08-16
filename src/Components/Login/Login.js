@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, KeyboardAvoidingView, Text, Image, ActivityIndicator } from 'react-native';
+import { View, KeyboardAvoidingView, Text, Image, ActivityIndicator, Alert } from 'react-native';
 import { Button, FormInput, FormValidationMessage } from 'react-native-elements'
 import { doLogin } from '../../services/SecurityService';
 import styles from './Login.style';
@@ -39,7 +39,8 @@ class Login extends Component {
     }
 
     onLoginFailed() {
-        alert('¡Oops! Tu usuario o contraseña no coinciden.');
+        Alert.alert('¡Oops!', '¡Oops! Tu usuario o contraseña no coinciden.',
+            [{ text: 'OK' },], { cancelable: true });
     }
 
 

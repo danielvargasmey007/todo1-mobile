@@ -15,7 +15,6 @@ const styles = ScaledSheet.create({
     },
     bottom: {
         height: height * 0.21,
-        backgroundColor: 'green'
     },
     mediumTitle: {
         textAlign: 'center', // <-- the magic

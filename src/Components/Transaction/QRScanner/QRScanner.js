@@ -4,7 +4,7 @@ import TransactionService from '../../../services/TransactionService';
 import HomeService from '../../../services/HomeService';
 import { getUid } from '../../../services/SecurityService';
 import { Button, FormInput, FormLabel } from 'react-native-elements';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import styles from './QRScanner.style';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -60,7 +60,7 @@ class QRScanner extends Component {
             })
             this.setState({ isSubmit: true })
         } catch (error) {
-            alert("!Opps!Alparecer no es un QR de todo 1")
+            Alert.alert('!Opps!', 'Alparecer no es un QR de todo 1', [{ text: 'OK' },], { cancelable: true });
         }
     }
 
@@ -68,18 +68,18 @@ class QRScanner extends Component {
         try {
             if (this.state.currentAccount) {
                 if ((this.state.rode2 && this.state.valTransfer) && (this.state.rode2 < this.state.valTransfer)) {
-                    alert('!Oops, no tienes lo suficiente.')
+                    Alert.alert('!Opps!', 'no tienes lo suficiente.', [{ text: 'OK' },], { cancelable: true });
                 } else {
                     await TransactionService.updateAccount(this.state.account1, this.state.rode1 + this.state.valTransfer);
                     await TransactionService.updateAccount(this.state.currentAccount, this.state.rode2 - this.state.valTransfer);
-                    alert('Operación Exitosa');
+                    Alert.alert('Hola!', 'Operación Exitosa.', [{ text: 'OK' },], { cancelable: true });
                     this.navigation.navigate('Home');
                 }
             } else {
-                alert('Por favor verifica tus datos.')
+                Alert.alert('Hola!', 'Por favor verifica tu información.', [{ text: 'OK' },], { cancelable: true });
             }
         } catch (error) {
-            alert('Operación Fallida');
+            Alert.alert('Hola!', 'Operación Fallida', [{ text: 'OK' },], { cancelable: true });
         }
     }
 
